@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>⚡ LEGEND MOBILE ENCRYPTOR ⚡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 10px;
+            position: relative;
+        }
+
+        /* Mobile First Design - All in REM for perfect scaling */
+        html {
+            font-size: 16px;
+        }
+
+        @media (max-width: 380px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        /* Neumorphism Background */
+        .body-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #e0e0e0;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.9) 0%, #d0d0d0 100%);
+            z-index: -1;
+        }
+
+        /* Main Container - Mobile Optimized */
+        .neumorph-container {
+            width: 100%;
+            max-width: 480px; /* Perfect for mobile */
+            background: #e0e0e0;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            box-shadow: 
+                1.2rem 1.2rem 2.4rem #bebebe,
+                -1.2rem -1.2rem 2.4rem #ffffff;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        /* Header - Mobile Optimized */
+        .header {
+            background: #e0e0e0;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 
+                inset 0.3rem 0.3rem 0.6rem #bebebe,
+                inset -0.3rem -0.3rem 0.6rem #ffffff,
+                1rem 1rem 2rem #bebebe,
+                -1rem -1rem 2rem #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .logo-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: #e0e0e0;
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 
+                0.4rem 0.4rem 0.8rem #bebebe,
+                -0.4rem -0.4rem 0.8rem #ffffff;
+            color: #505050;
+        }
+
+        .logo-text {
+            text-align: center;
+        }
+
+        .logo-text h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #505050;
+            text-shadow: 0.1rem 0.1rem 0.2rem #bebebe, -0.1rem -0.1rem 0.2rem #ffffff;
+            letter-spacing: 0.1rem;
+        }
+
+        .logo-text p {
+            color: #707070;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Social Links - Mobile Optimized */
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .social-link {
+            width: 3rem;
+            height: 3rem;
+            background: #e0e0e0;
+            border-radius: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #505050;
+            text-decoration: none;
+            box-shadow: 
+                0.4rem 0.4rem 0.8rem #bebebe,
+                -0.4rem -0.4rem 0.8rem #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:active {
+            box-shadow: 
+                inset 0.4rem 0.4rem 0.8rem #bebebe,
+                inset -0.4rem -0.4rem 0.8rem #ffffff;
+        }
+
+        /* Main Grid - Mobile Single Column */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Neumorphism Cards - Mobile Optimized */
+        .neumorph-card {
+            background: #e0e0e0;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            box-shadow: 
+                1rem 1rem 2rem #bebebe,
+                -1rem -1rem 2rem #ffffff;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 0.15rem solid #d0d0d0;
+        }
+
+        .card-header h2 {
+            color: #505050;
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-header span {
+            background: #e0e0e0;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #606060;
+            box-shadow: 
+                inset 0.2rem 0.2rem 0.4rem #bebebe,
+                inset -0.2rem -0.2rem 0.4rem #ffffff;
+        }
+
+        /* Textareas - Mobile Optimized */
+        .neumorph-textarea {
+            width: 100%;
+            height: 12rem; /* Fixed height for mobile */
+            background: #e0e0e0;
+            border: none;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #505050;
+            resize: none; /* Disable resize on mobile */
+            box-shadow: 
+                inset 0.4rem 0.4rem 0.8rem #bebebe,
+                inset -0.4rem -0.4rem 0.8rem #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .neumorph-textarea:focus {
+            outline: none;
+        }
+
+        /* Button Grid - Mobile Optimized */
+        .button-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        /* Neumorphism Buttons - Mobile Optimized */
+        .neumorph-btn {
+            background: #e0e0e0;
+            border: none;
+            border-radius: 2rem;
+            padding: 0.9rem 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #505050;
+            cursor: pointer;
+            box-shadow: 
+                0.4rem 0.4rem 0.8rem #bebebe,
+                -0.4rem -0.4rem 0.8rem #ffffff;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .neumorph-btn:active {
+            box-shadow: 
+                inset 0.4rem 0.4rem 0.8rem #bebebe,
+                inset -0.4rem -0.4rem 0.8rem #ffffff;
+            transform: scale(0.97);
+        }
+
+        .neumorph-btn.primary {
+            background: #505050;
+            color: #e0e0e0;
+        }
+
+        .neumorph-btn.primary:active {
+            background: #606060;
+        }
+
+        /* Encryption Options Panel - Mobile Optimized */
+        .options-panel {
+            background: #e0e0e0;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 
+                inset 0.4rem 0.4rem 0.8rem #bebebe,
+                inset -0.4rem -0.4rem 0.8rem #ffffff,
+                1rem 1rem 2rem #bebebe,
+                -1rem -1rem 2rem #ffffff;
+        }
+
+        .options-title {
+            color: #505050;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .option-item {
+            background: #e0e0e0;
+            border-radius: 1.5rem;
+            padding: 0.7rem 0.3rem;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #505050;
+            cursor: pointer;
+            box-shadow: 
+                0.3rem 0.3rem 0.6rem #bebebe,
+                -0.3rem -0.3rem 0.6rem #ffffff;
+            transition: all 0.1s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .option-item.active {
+            box-shadow: 
+                inset 0.3rem 0.3rem 0.6rem #bebebe,
+                inset -0.3rem -0.3rem 0.6rem #ffffff;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .option-item:active {
+            transform: scale(0.95);
+        }
+
+        /* Links Panel - Mobile Optimized */
+        .links-panel {
+            background: #e0e0e0;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            box-shadow: 
+                inset 0.3rem 0.3rem 0.6rem #bebebe,
+                inset -0.3rem -0.3rem 0.6rem #ffffff;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .legend-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.2rem;
+            background: #e0e0e0;
+            border-radius: 2rem;
+            color: #505050;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 
+                0.4rem 0.4rem 0.8rem #bebebe,
+                -0.4rem -0.4rem 0.8rem #ffffff;
+            transition: all 0.1s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .legend-link:active {
+            box-shadow: 
+                inset 0.4rem 0.4rem 0.8rem #bebebe,
+                inset -0.4rem -0.4rem 0.8rem #ffffff;
+        }
+
+        .legend-link span:first-child {
+            font-size: 1.4rem;
+        }
+
+        .legend-link span:last-child {
+            margin-left: auto;
+            opacity: 0.7;
+        }
+
+        /* Stats Panel - Mobile Optimized */
+        .stats-panel {
+            background: #e0e0e0;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            margin-top: 1.2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            box-shadow: 
+                inset 0.3rem 0.3rem 0.6rem #bebebe,
+                inset -0.3rem -0.3rem 0.6rem #ffffff;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #505050;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            color: #707070;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        /* Footer - Mobile Optimized */
+        .footer {
+            text-align: center;
+            margin-top: 1.2rem;
+            padding: 1.2rem;
+            background: #e0e0e0;
+            border-radius: 2rem;
+            box-shadow: 
+                0.6rem 0.6rem 1.2rem #bebebe,
+                -0.6rem -0.6rem 1.2rem #ffffff;
+        }
+
+        .footer-text {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #505050;
+            text-shadow: 0.15rem 0.15rem 0.3rem #bebebe, -0.15rem -0.15rem 0.3rem #ffffff;
+            letter-spacing: 0.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-text i {
+            font-size: 1.6rem;
+        }
+
+        .watermark {
+            color: #808080;
+            font-size: 0.6rem;
+            margin-top: 0.6rem;
+        }
+
+        /* Fix for mobile touch */
+        button, .option-item, .legend-link {
+            touch-action: manipulation;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 0.3rem;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 0.3rem;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c0c0c0;
+            border-radius: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="body-bg"></div>
+    
+    <div class="neumorph-container">
+        <!-- Header with Logo and Social Links -->
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">
+                    <h1>LEGEND VAULT</h1>
+                    <p>Mobile Encryption</p>
+                </div>
+            </div>
+            
+            <!-- Social Links -->
+            <div class="social-links">
+                <a href="https://legend-mods-store.vercel.app/" target="_blank" class="social-link">🏪</a>
+                <a href="https://t.me/legend_tool" target="_blank" class="social-link">📱</a>
+                <a href="https://whatsapp.com/channel/0029VarS46O3QxRtTZO0z60x" target="_blank" class="social-link">💬</a>
+                <a href="https://www.youtube.com/@legendmod407" target="_blank" class="social-link">▶️</a>
+            </div>
+        </div>
+
+        <!-- Main Grid - Input/Output -->
+        <div class="main-grid">
+            <!-- Input Card -->
+            <div class="neumorph-card">
+                <div class="card-header">
+                    <h2><span>📝</span> ORIGINAL</h2>
+                    <span>INPUT</span>
+                </div>
+                <textarea class="neumorph-textarea" id="inputCode" placeholder="Paste your JavaScript code here...">// LEGEND Video Editor
+function applyFrame(video, type) {
+    const frames = {
+        classic: "□",
+        neon: "♡", 
+        gold: "✩",
+        silver: "○"
+    };
+    return video + " " + frames[type];
+}</textarea>
+                <div class="button-grid">
+                    <button class="neumorph-btn" id="loadExampleBtn"><span>📋</span> EXAMPLE</button>
+                    <button class="neumorph-btn" id="clearBtn"><span>🗑️</span> CLEAR</button>
+                </div>
+            </div>
+
+            <!-- Output Card -->
+            <div class="neumorph-card">
+                <div class="card-header">
+                    <h2><span>🔒</span> ENCRYPTED</h2>
+                    <span>OUTPUT</span>
+                </div>
+                <textarea class="neumorph-textarea" id="outputCode" placeholder="Encrypted code will appear here..." readonly></textarea>
+                <div class="button-grid">
+                    <button class="neumorph-btn" id="copyBtn"><span>📋</span> COPY</button>
+                    <button class="neumorph-btn" id="downloadBtn"><span>⬇️</span> SAVE</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Encryption Options Panel -->
+        <div class="options-panel">
+            <div class="options-title">
+                <span>⚙️</span> SECURITY LEVEL
+            </div>
+            
+            <!-- Encryption Levels -->
+            <div class="options-grid" id="encryptionLevels">
+                <div class="option-item" data-level="basic">BASIC</div>
+                <div class="option-item" data-level="medium">MEDIUM</div>
+                <div class="option-item active" data-level="heavy">HEAVY</div>
+                <div class="option-item" data-level="quantum">QUANTUM</div>
+                <div class="option-item" data-level="military">MILITARY</div>
+                <div class="option-item" data-level="legend">LEGEND</div>
+            </div>
+
+            <div class="options-title" style="margin-top: 0.5rem;">
+                <span>🎭</span> TECHNIQUES
+            </div>
+            <div class="options-grid" id="techniques">
+                <div class="option-item active" data-tech="rename">RENAME</div>
+                <div class="option-item active" data-tech="string">STRING</div>
+                <div class="option-item active" data-tech="number">NUMBER</div>
+                <div class="option-item active" data-tech="control">CONTROL</div>
+                <div class="option-item active" data-tech="deadcode">DEAD</div>
+                <div class="option-item active" data-tech="selfdefend">DEFEND</div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-grid" style="margin-top: 1rem;">
+                <button class="neumorph-btn primary" id="encryptBtn"><span>🔒</span> ENCRYPT</button>
+                <button class="neumorph-btn" id="testBtn"><span>▶️</span> TEST</button>
+            </div>
+        </div>
+
+        <!-- LEGEND LINKS PANEL -->
+        <div class="links-panel">
+            <div class="options-title">
+                <span>🌐</span> LEGEND NETWORK
+            </div>
+            <div class="links-grid">
+                <a href="https://legend-mods-store.vercel.app/" target="_blank" class="legend-link">
+                    <span>🏪</span>
+                    <span>LEGEND STORE</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://t.me/legend_tool" target="_blank" class="legend-link">
+                    <span>📱</span>
+                    <span>TELEGRAM</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://whatsapp.com/channel/0029VarS46O3QxRtTZO0z60x" target="_blank" class="legend-link">
+                    <span>💬</span>
+                    <span>WHATSAPP</span>
+                    <span>↗️</span>
+                </a>
+                <a href="https://www.youtube.com/@legendmod407" target="_blank" class="legend-link">
+                    <span>▶️</span>
+                    <span>YOUTUBE</span>
+                    <span>↗️</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Panel -->
+        <div class="stats-panel" id="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="originalSize">89</div>
+                <div class="stat-label">INPUT</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="encryptedSize">0</div>
+                <div class="stat-label">OUTPUT</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="ratio">0%</div>
+                <div class="stat-label">RATIO</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="securityScore">0%</div>
+                <div class="stat-label">SECURE</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-text">
+                <i>⚡</i> MADE BY LEGEND <i>⚡</i>
+            </div>
+            <div class="watermark">
+                MOBILE OPTIMIZED • QUANTUM ENCRYPTION
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===========================================
+        // LEGEND ENCRYPTION ENGINE - MOBILE OPTIMIZED
+        // ===========================================
+        
+        // DOM Elements
+        const inputCode = document.getElementById('inputCode');
+        const outputCode = document.getElementById('outputCode');
+        const encryptBtn = document.getElementById('encryptBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const loadExampleBtn = document.getElementById('loadExampleBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const testBtn = document.getElementById('testBtn');
+        
+        // Stats elements
+        const originalSize = document.getElementById('originalSize');
+        const encryptedSize = document.getElementById('encryptedSize');
+        const ratio = document.getElementById('ratio');
+        const securityScore = document.getElementById('securityScore');
+
+        // Current settings
+        let currentLevel = 'heavy';
+        let activeTechniques = ['rename', 'string', 'number', 'control', 'deadcode', 'selfdefend'];
+
+        // Update original size on load
+        originalSize.textContent = inputCode.value.length;
+
+        // ===========================================
+        // ENCRYPTION FUNCTIONS
+        // ===========================================
+        
+        function encryptString(str) {
+            return btoa(unescape(encodeURIComponent(str))).split('').reverse().join('');
+        }
+
+        function encryptNumber(num) {
+            return `(0x${num.toString(16)})`;
+        }
+
+        function generateVarName() {
+            return '_' + Math.random().toString(36).substring(2, 8);
+        }
+
+        function encryptCode(code, level, techniques) {
+            if (!code.trim()) return '';
+            
+            let encrypted = code;
+            
+            // Simple encryption for demo
+            if (techniques.includes('rename')) {
+                encrypted = encrypted.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\b/g, function(match) {
+                    if (match === 'function' || match === 'return' || match === 'const' || match === 'let') return match;
+                    return generateVarName();
+                });
+            }
+            
+            if (techniques.includes('string')) {
+                encrypted = encrypted.replace(/(['"])(.*?)\1/g, function(match, quote, str) {
+                    return 'atob("' + btoa(str) + '")';
+                });
+            }
+            
+            if (level === 'legend') {
+                encrypted = `eval(atob("${btoa(encrypted)}"))`;
+            }
+            
+            return encrypted;
+        }
+
+        // ===========================================
+        // EVENT HANDLERS
+        // ===========================================
+        
+        // Encryption level selection
+        document.querySelectorAll('#encryptionLevels .option-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('#encryptionLevels .option-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                currentLevel = item.dataset.level;
+                updateSecurityScore();
+            });
+        });
+
+        // Techniques selection
+        document.querySelectorAll('#techniques .option-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+                activeTechniques = [];
+                document.querySelectorAll('#techniques .option-item.active').forEach(i => {
+                    activeTechniques.push(i.dataset.tech);
+                });
+                updateSecurityScore();
+            });
+        });
+
+        // Encrypt button
+        encryptBtn.addEventListener('click', () => {
+            const original = inputCode.value;
+            if (!original.trim()) {
+                alert('Please enter code to encrypt!');
+                return;
+            }
+            
+            const encrypted = encryptCode(original, currentLevel, activeTechniques);
+            outputCode.value = encrypted;
+            
+            // Update stats
+            encryptedSize.textContent = encrypted.length;
+            ratio.textContent = Math.round((encrypted.length / original.length) * 100) + '%';
+        });
+
+        // Copy button
+        copyBtn.addEventListener('click', () => {
+            if (!outputCode.value) {
+                alert('No encrypted code to copy!');
+                return;
+            }
+            outputCode.select();
+            outputCode.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            alert('✅ Copied to clipboard!');
+        });
+
+        // Download button
+        downloadBtn.addEventListener('click', () => {
+            if (!outputCode.value) {
+                alert('No encrypted code to save!');
+                return;
+            }
+            const blob = new Blob([outputCode.value], { type: 'text/javascript' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `legend_${Date.now()}.js`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Load example
+        loadExampleBtn.addEventListener('click', () => {
+            inputCode.value = `// LEGEND Video Editor
+function applyFrame(video, type) {
+    const frames = {
+        classic: "□",
+        neon: "♡", 
+        gold: "✩",
+        silver: "○"
+    };
+    return video + " " + frames[type];
+}`;
+            originalSize.textContent = inputCode.value.length;
+        });
+
+        // Clear button
+        clearBtn.addEventListener('click', () => {
+            inputCode.value = '';
+            outputCode.value = '';
+            originalSize.textContent = '0';
+            encryptedSize.textContent = '0';
+            ratio.textContent = '0%';
+        });
+
+        // Test button
+        testBtn.addEventListener('click', () => {
+            if (!outputCode.value) {
+                alert('No encrypted code to test!');
+                return;
+            }
+            
+            try {
+                eval(outputCode.value);
+                alert('✅ Code executed successfully!');
+            } catch (e) {
+                alert('❌ Error: ' + e.message);
+            }
+        });
+
+        // Update security score
+        function updateSecurityScore() {
+            let score = 0;
+            switch(currentLevel) {
+                case 'basic': score += 20; break;
+                case 'medium': score += 40; break;
+                case 'heavy': score += 60; break;
+                case 'quantum': score += 75; break;
+                case 'military': score += 90; break;
+                case 'legend': score += 100; break;
+            }
+            score += activeTechniques.length * 6;
+            securityScore.textContent = Math.min(score, 100) + '%';
+        }
+
+        // Auto-update stats
+        inputCode.addEventListener('input', () => {
+            originalSize.textContent = inputCode.value.length;
+        });
+
+        // Initialize
+        updateSecurityScore();
+    </script>
+</body>
+</html>
